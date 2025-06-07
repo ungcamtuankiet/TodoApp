@@ -1,5 +1,4 @@
-﻿
-using MRT.Application.Interfaces;
+﻿using MRT.Application.Interfaces;
 
 namespace MRT.WebAPI.Middlewares
 {

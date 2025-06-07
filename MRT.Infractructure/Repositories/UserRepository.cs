@@ -36,10 +36,11 @@ namespace MRT.Infrastructure.Repositories
            .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task AddAsync(ApplicationUser user)
+        public async Task<ApplicationUser> AddAsync(ApplicationUser user)
         {
             await _dbContext.User.AddAsync(user);
             await _dbContext.SaveChangesAsync();
+            return user;
         }
 
         public async Task UpdateAsync(ApplicationUser user)

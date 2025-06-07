@@ -20,7 +20,7 @@ namespace MRT.Application.Repositories
 
 
         Task UpdateAsync(ApplicationUser user);
-        Task AddAsync(ApplicationUser user);
+        Task<ApplicationUser> AddAsync(ApplicationUser user);
         Task<ApplicationUser> GetUserByEmail(string email);
         Task<bool> ExistsAsync(Expression<Func<ApplicationUser, bool>> predicate);
         Task<ApplicationUser> GetUserById(Guid userId);

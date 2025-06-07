@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using MRT.Application.Interfaces;
-using System;
+﻿using MRT.Application.Interfaces;
 using System.Security.Claims;
 
 namespace MRT.WebAPI.Services

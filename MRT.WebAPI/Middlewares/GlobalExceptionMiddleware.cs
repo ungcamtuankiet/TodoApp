@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Threading.Tasks;
-
-namespace MRT.WebAPI.Middlewares
+﻿namespace MRT.WebAPI.Middlewares
 {
     public class GlobalExceptionMiddleware : IMiddleware
     {

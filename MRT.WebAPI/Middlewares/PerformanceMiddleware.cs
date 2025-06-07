@@ -1,7 +1,4 @@
 ﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace MRT.WebAPI.Middlewares
 {
@@ -31,6 +28,6 @@ namespace MRT.WebAPI.Middlewares
                 stopwatch.Stop();
                 _logger.LogInformation("Request completed in {ElapsedMs}ms", stopwatch.ElapsedMilliseconds);
             }
-        } 
+        }
     }
 }
