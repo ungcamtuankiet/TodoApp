@@ -1,10 +1,8 @@
-﻿using Microsoft.Extensions.Options;
-using MRT.Application.Interfaces;
+﻿using MRT.Application.Interfaces;
 using MRT.WebAPI.Middlewares;
 using MRT.WebAPI.Services;
 using System.Diagnostics;
 using System.Reflection;
-using System.Security.Claims;
 
 namespace MRT.WebAPI
 {
@@ -13,15 +11,15 @@ namespace MRT.WebAPI
         public static IServiceCollection AddApi(this IServiceCollection services)
         {
             services.AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.ReferenceHandler =
-                        System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-                    options.JsonSerializerOptions.DefaultIgnoreCondition =
-                        System.Text.Json.Serialization.JsonIgnoreCondition.Never;
-                    options.JsonSerializerOptions.Converters.Add(
-                        new System.Text.Json.Serialization.JsonStringEnumConverter()); // Add this line to handle enums as strings in JSON
-                });
+               .AddJsonOptions(options =>
+               {
+                   options.JsonSerializerOptions.ReferenceHandler =
+                       System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+                   options.JsonSerializerOptions.DefaultIgnoreCondition =
+                       System.Text.Json.Serialization.JsonIgnoreCondition.Never;
+                   options.JsonSerializerOptions.Converters.Add(
+                       new System.Text.Json.Serialization.JsonStringEnumConverter()); // Add this line to handle enums as strings in JSON
+               });
             services.AddSignalR();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -34,7 +32,7 @@ namespace MRT.WebAPI
             services.AddControllersWithViews();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Todo Web App API", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ManagerTask Web App API", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {
@@ -74,7 +72,6 @@ namespace MRT.WebAPI
                 options.AddPolicy("AdminPolicy", policy =>
                     policy.RequireClaim(System.Security.Claims.ClaimTypes.Role, "Admin"));
             });
-
             return services;
         }
     }

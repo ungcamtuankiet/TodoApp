@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MRT.Application;
 using MRT.Infrastructure;
 using MRT.WebAPI;
+using MRT.WebAPI.Middlewares;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
-
 var key = System.Text.Encoding.ASCII.GetBytes(builder.Configuration["JwtSettings:SecretKey"]);
 builder.Services.AddAuthentication(options =>
 {
@@ -70,8 +70,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -81,17 +79,43 @@ builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
+app.UseSwagger(c => { c.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi2_0; });
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+
     app.UseSwaggerUI();
 }
+else
+{
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ManagerTask API V1");
+        c.InjectJavascript("/custom-swagger.js");
+        c.RoutePrefix = string.Empty;
+    });
+}
+
+app.UseExceptionHandler("/Error");
+
+app.UseCors("AllowSpecificOrigin");
+
+// Middleware for performance tracking
+app.UseMiddleware<PerformanceMiddleware>();
+
 
 app.UseHttpsRedirection();
+// Use Global Exception Middleware 
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
+// use authen
+app.UseAuthentication();
+app.UseMiddleware<TokenBlacklistMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseSqlTableDependency(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 app.Run();

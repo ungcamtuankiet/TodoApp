@@ -24,6 +24,7 @@ namespace MRT.Infrastructure
             services.AddScoped<IRedisService, RedisService>();
             services.AddScoped<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddMemoryCache();
             //Repositories
@@ -37,7 +38,7 @@ namespace MRT.Infrastructure
 
             //Cloundinary
             services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
-            
+
 
             var redisConnectionString = configuration.GetConnectionString("Redis");
             services.AddSingleton<IConnectionMultiplexer>(_ =>

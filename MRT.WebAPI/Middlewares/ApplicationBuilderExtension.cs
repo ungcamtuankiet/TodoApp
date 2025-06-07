@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-
-namespace MRT.WebAPI.Middlewares
+﻿namespace MRT.WebAPI.Middlewares
 {
     public static class ApplicationBuilderExtension
     {

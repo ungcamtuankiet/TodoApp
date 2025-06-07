@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using MRT.Domain.Entities;
 using MRT.Domain.Enums;
 using System.Reflection.Metadata;
@@ -34,6 +35,26 @@ public class AppDbContext : DbContext
             v => v.ToString(),
             v => (StatusEnum)Enum.Parse(typeof(StatusEnum), v)
         );
+
+        modelBuilder.Entity<ApplicationUser>()
+            .Property(u => u.Email)
+            .IsRequired();
+
+        modelBuilder.Entity<ApplicationUser>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+
+        modelBuilder.Entity<ApplicationUser>()
+            .Property(u => u.UserName)
+            .IsRequired();
+
+        modelBuilder.Entity<ApplicationUser>()
+            .HasIndex(u => u.UserName)
+            .IsUnique();
+
+        modelBuilder.Entity<ApplicationUser>()
+            .HasIndex(u => u.PhoneNumber)
+            .IsUnique();
 
         modelBuilder.Entity<ApplicationUser>()
             .HasData(
