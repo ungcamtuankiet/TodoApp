@@ -1,0 +1,23 @@
+# Build folders
+bin/
+obj/
+
+# User-specific files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+*.dll
+*.exe
+*.cache
+*.pdb
+*.db
+*.log
+
+# Others
+*.FileListAbsolute.txt
+.fake
+.vs/
